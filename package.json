@@ -1,0 +1,39 @@
+{
+  "name": "@innexgo/frontend-common",
+  "version": "0.0.1",
+  "description": "Core utils and bindings used by the other networking components of the api.",
+  "main": "lib/index.js",
+  "files": ["lib/**/*"],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/innexgo/frontend-common.git"
+  },
+  "author": "Govind Pimpale",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/innexgo/frontend-common/issues"
+  },
+  "homepage": "https://github.com/innexgo/frontend-common#readme",
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
