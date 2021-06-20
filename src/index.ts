@@ -21,7 +21,7 @@ export async function fetchApi(url: string, data: object) {
   // Catch all errors and always return a response
   const resp = await (async () => {
     try {
-      return await fetch(url, {
+      return await fetch(apiUrl() + url, {
         method: 'POST',    // *GET, POST, PUT, DELETE, etc.
         mode: 'cors',      // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
