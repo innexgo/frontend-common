@@ -16,34 +16,24 @@ export function apiUrl() {
   return staticUrl() + '/api';
 }
 
-// This function is guaranteed to only return ApiErrorCode | object
+// This function may throw
 export async function fetchApi(url: string, data: object) {
   // Catch all errors and always return a response
-  const resp = await (async () => {
-    try {
-      return await fetch(apiUrl() + url, {
-        method: 'POST',    // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors',      // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        redirect: 'follow',            // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(data)     // body data type must match "Content-Type" header
-      });
-    } catch (e) {
-      return new Response('"NETWORK"', { status: 400 })
-    }
-  })();
+  let resp = await fetch(`${apiUrl()}/${url}`, {
+    method: 'POST',    // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors',      // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'follow',            // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data)     // body data type must match "Content-Type" header
+  });
 
-  try {
-    let objResp = await resp.json();
-    return objResp;
-  } catch (e) {
-    return "UNKNOWN";
-  }
+  let objResp = await resp.json();
+  return objResp;
 }
 
 // from here:
@@ -58,17 +48,38 @@ export async function fetchApi(url: string, data: object) {
 * findLastIndex immediately returns that element index. Otherwise, findLastIndex returns -1.
 */
 export function findLastIndex<T>(array: Array<T>, predicate: (value: T, index: number, obj: T[]) => boolean): number {
-    let l = array.length;
-    while (l--) {
-        if (predicate(array[l], l, array))
-            return l;
-    }
-    return -1;
+  let l = array.length;
+  while (l--) {
+    if (predicate(array[l], l, array))
+      return l;
+  }
+  return -1;
 }
 
 
-export function assert(val:boolean, msg:string) {
-  if(!val) {
-      throw new Error(msg);
+export function assert(val: boolean, msg: string) {
+  if (!val) {
+    throw new Error(msg);
   }
 }
+
+export type Ok<T> = { Ok: T }
+export type Err<E> = { Err: E }
+export type Result<T, E> = Ok<T> | Err<E>
+
+export function isErr<T, E>(r: Result<T, E>): r is Err<E> {
+  return 'Err' in r
+}
+
+export function isOk<T, E>(r: Result<T, E>): r is Ok<T> {
+  return 'Ok' in r
+}
+
+export async function fromPromise<T, E>(p: Promise<T>, handler: (e: unknown) => E): Promise<Result<T, E>> {
+  try {
+    return { Ok: await p }
+  } catch (e) {
+    return { Err: handler(e) }
+  }
+}
+
