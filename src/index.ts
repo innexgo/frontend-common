@@ -83,3 +83,10 @@ export async function fromPromise<T, E>(p: Promise<T>, handler: (e: unknown) => 
   }
 }
 
+export function unwrap<T>(r:Result<T, string | undefined>): T {
+  if(isErr(r)) {
+      throw Error(r.Err);
+  } else {
+      return r.Ok
+  }
+}
