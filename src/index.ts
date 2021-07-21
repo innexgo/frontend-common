@@ -56,13 +56,6 @@ export function findLastIndex<T>(array: Array<T>, predicate: (value: T, index: n
   return -1;
 }
 
-
-export function assert(val: boolean, msg: string) {
-  if (!val) {
-    throw new Error(msg);
-  }
-}
-
 export type Ok<T> = { Ok: T }
 export type Err<E> = { Err: E }
 export type Result<T, E> = Ok<T> | Err<E>
