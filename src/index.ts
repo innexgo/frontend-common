@@ -73,6 +73,10 @@ export function findFirstIndex<T>(array: Array<T>, predicate: (value: T, index: 
   }
 }
 
+export function isEmpty(o: object) {
+  return Object.keys(o).length === 0
+}
+
 export type Ok<T> = { Ok: T }
 export type Err<E> = { Err: E }
 export type Result<T, E> = Ok<T> | Err<E>
