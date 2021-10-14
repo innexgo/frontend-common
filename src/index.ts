@@ -19,7 +19,7 @@ export function apiUrl() {
 // This function may throw
 export async function fetchApi(url: string, data: object) {
   // Catch all errors and always return a response
-  let resp = await fetch(`${apiUrl()}/${url}`, {
+  let resp = await fetch(url, {
     method: 'POST',    // *GET, POST, PUT, DELETE, etc.
     mode: 'cors',      // no-cors, *cors, same-origin
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

@@ -1,6 +1,6 @@
 {
   "name": "@innexgo/frontend-common",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Core utils and bindings used by the other networking components of the api.",
   "main": "lib/index.js",
   "files": ["lib/**/*"],
