@@ -89,12 +89,25 @@ export function isOk<T, E>(r: Result<T, E>): r is Ok<T> {
   return 'Ok' in r
 }
 
-export async function fromPromise<T, E>(p: Promise<T>, handler: (e: unknown) => E): Promise<Result<T, E>> {
+export async function promiseToResult<T, E>(p: Promise<T>, handler: (e: unknown) => E): Promise<Result<T, E>> {
   try {
     return { Ok: await p }
   } catch (e) {
     return { Err: handler(e) }
   }
+}
+
+export function getNthOr<T, E>(a: T[], n:number, e:E): Result<T, E> {
+  const x = a[n];
+  if(x === undefined) {
+      return { Err: e }
+  } else {
+      return { Ok: x }
+  }
+}
+
+export function getFirstOr<T, E>(a: T[], e:E): Result<T, E> {
+  return getNthOr(a, 0, e);
 }
 
 export function unwrap<T>(r: Result<T, string | undefined>): T {
