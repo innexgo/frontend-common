@@ -17,9 +17,9 @@ export function apiUrl() {
 }
 
 // This function may throw
-export async function fetchApi(url: string, data: object) {
+export async function fetchApi(url: string, data: object): Promise<[number, any]> {
   // Catch all errors and always return a response
-  let resp = await fetch(url, {
+  const resp = await fetch(url, {
     method: 'POST',    // *GET, POST, PUT, DELETE, etc.
     mode: 'cors',      // no-cors, *cors, same-origin
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -32,8 +32,9 @@ export async function fetchApi(url: string, data: object) {
     body: JSON.stringify(data)     // body data type must match "Content-Type" header
   });
 
-  let objResp = await resp.json();
-  return objResp;
+  const objResp = await resp.json();
+  const code = await resp.status;
+  return [code, objResp];
 }
 
 // from here:
