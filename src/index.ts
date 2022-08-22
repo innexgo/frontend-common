@@ -13,7 +13,7 @@ export function staticUrl() {
 }
 
 export function apiUrl() {
-  return staticUrl() + '/api';
+  return staticUrl() + '/api/';
 }
 
 // This function may throw
