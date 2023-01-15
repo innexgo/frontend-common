@@ -12,10 +12,6 @@ export function staticUrl() {
   return window.location.protocol + "//" + window.location.host;
 }
 
-export function apiUrl() {
-  return staticUrl() + '/api/';
-}
-
 // This function may throw
 export async function fetchApi(url: string, data: object): Promise<[number, any]> {
   // Catch all errors and always return a response
