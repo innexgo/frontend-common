@@ -1,6 +1,6 @@
 {
   "name": "@innexgo/frontend-common",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Core utils and bindings used by the other networking components of the api.",
   "main": "lib/index.js",
   "files": ["lib/**/*"],
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/innexgo/frontend-common#readme",
   "devDependencies": {
-    "typescript": "^4.9.4"
+    "typescript": "^5.5.4"
   },
   "eslintConfig": {
     "extends": "react-app"
